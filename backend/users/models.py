@@ -1,10 +1,8 @@
-# users/models.py
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
 from .managers import MyUserManager
 
 class User(AbstractUser):
-    # Remove o username herdado
     username = None
     
     email = models.EmailField(unique=True)
@@ -17,9 +15,8 @@ class User(AbstractUser):
     followers = models.ManyToManyField('self', symmetrical=False, related_name='following', blank=True)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []  # sem username, sem first_name etc.,
+    REQUIRED_FIELDS = []
 
-    # Atribui o manager customizado
     objects = MyUserManager()
 
     def __str__(self):

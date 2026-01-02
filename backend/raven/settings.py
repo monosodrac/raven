@@ -17,7 +17,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # 🔐 SECURITY
 # --------------------------------------------------------------
 SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-default-key")
-DEBUG = int(os.environ.get("DEBUG", 0))  # Em produção sempre 0
+DEBUG = int(os.environ.get("DEBUG", 1))
 
 ALLOWED_HOSTS = [
     "monosodrac.pythonanywhere.com",
@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     "django_extensions",
 
-    # Apps do projeto
+    # Apps
     "tweets",
     "users",
 ]
@@ -53,7 +53,7 @@ INSTALLED_APPS = [
 # ⚙️ MIDDLEWARE
 # --------------------------------------------------------------
 MIDDLEWARE = [
-    "corsheaders.middleware.CorsMiddleware",  # TEM QUE SER O PRIMEIRO
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -172,7 +172,6 @@ STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-# (Opcional) Se quiser servir media no futuro:
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 

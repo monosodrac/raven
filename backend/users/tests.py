@@ -7,12 +7,10 @@ from users.models import User
 class UserAPITest(TestCase):
     def setUp(self):
         self.client = APIClient()
-        # Cria usuário usando apenas email e password
         self.user = User.objects.create_user(
             email="testuser@example.com",
             password="password123"
         )
-        # Agora, na rota de token, { "email": ..., "password": ... }
         response = self.client.post('/api/token/', {
             "email": "testuser@example.com",
             "password": "password123"
@@ -30,7 +28,7 @@ class UserAPITest(TestCase):
         data = {
             "email": "newuser@example.com",
             "password": "newpassword123",
-            "password_confirmation": "newpassword123",  # Campo obrigatório
+            "password_confirmation": "newpassword123",
         }
         response = self.client.post('/api/users/', data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)

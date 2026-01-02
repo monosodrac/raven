@@ -1,4 +1,3 @@
-# raven/urls.py
 from raven import views
 from django.contrib import admin
 from django.urls import path, include
@@ -14,4 +13,7 @@ urlpatterns = [
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("update_server/", views.update, name="update"),
     path("hello/", views.hello_world, name="hello_world"),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
