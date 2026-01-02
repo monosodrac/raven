@@ -1,6 +1,5 @@
-// src/components/Tweet/Tweet.tsx
 import { useState, useEffect } from 'react';
-import { Heart, MessageCircle, Repeat2, Share, UserPlus, UserMinus } from 'lucide-react'; // <-- AQUI: ícones de seguir
+import { Heart, MessageCircle, Repeat2, Share, UserPlus, UserMinus } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 import { api } from '../../api/api';
 
@@ -14,8 +13,8 @@ interface TweetProps {
     retweets: number;
     replies: number;
     liked?: boolean;
-    userId?: number | string; // <-- AQUI: ID do autor do tweet (necessário para seguir)
-    isFollowing?: boolean; // <-- usado para iniciar o estado do botão
+    userId?: number | string;
+    isFollowing?: boolean;
 }
 
 interface Comment {
@@ -34,17 +33,15 @@ export function Tweet({
     retweets,
     replies,
     liked: initialLiked = false,
-    userId, // <-- AQUI
-    isFollowing: initialIsFollowing = false, // <- aqui
+    userId,
+    isFollowing: initialIsFollowing = false,
 }: TweetProps) {
     const [liked, setLiked] = useState(initialLiked);
     const [likeCount, setLikeCount] = useState(likes);
     const [comments, setComments] = useState<Comment[]>([]);
     const [commentText, setCommentText] = useState('');
-    const [isFollowing, setIsFollowing] = useState(initialIsFollowing ?? false); // <-- AQUI
+    const [isFollowing, setIsFollowing] = useState(initialIsFollowing ?? false);
     const { token } = useAuth();
-
-    // console.log("Token no Tweet component:", token, "userId:", userId);
 
     const handleLike = async () => {
         if (!token) {
@@ -73,9 +70,6 @@ export function Tweet({
         }
     };
 
-    // -------------------------------
-    // 🔹 NOVA FUNÇÃO: seguir/desseguir usuário
-    // -------------------------------
     const handleFollow = async () => {
         if (!token || !userId) {
             console.warn("Sem token ou userId");
@@ -102,7 +96,6 @@ export function Tweet({
 
             const data = await response.json();
 
-            // ✅ Ajuste: backend retorna { "status": "followed" } ou "unfollowed"
             if (data.status === "followed") {
                 setIsFollowing(true);
             } else if (data.status === "unfollowed") {
@@ -116,7 +109,6 @@ export function Tweet({
     };
 
 
-    // ---------------------- Comentários ----------------------
     useEffect(() => {
         const fetchComments = async () => {
             try {
@@ -171,11 +163,8 @@ export function Tweet({
                         <div className="flex items-center space-x-2">
                             <span className="font-bold text-white">{username}</span>
                             <span className="text-gray-500">@{handle}</span>
-                            {/* <span className="text-gray-500">·</span> */}
-                            {/* <span className="text-gray-500">{timestamp}</span> */}
                         </div>
 
-                        {/* 🔹 Botão de seguir/desseguir */}
                         <button
                             onClick={handleFollow}
                             className={`flex items-center space-x-1 px-3 py-1 rounded-lg text-sm ${

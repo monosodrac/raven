@@ -12,7 +12,7 @@ function App() {
   }, [restoreSession]);
 
   if (isLoading) {
-    return <div>Carregando...</div>; // Placeholder para enquanto o estado é restaurado
+    return <div>Carregando...</div>;
   }
 
   return <AppRouter />;

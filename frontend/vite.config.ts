@@ -9,8 +9,7 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      // Proxy para a API
-      '/api': 'http://127.0.0.1:8000',  // Substitua com a URL do seu backend
+      '/api': 'http://127.0.0.1:8000',
     },
   },
 });

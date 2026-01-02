@@ -20,7 +20,5 @@ urlpatterns = [
     path('token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('toggle-follow/<int:user_id>/', toggle_follow, name='toggle-follow'),
-
-    # Sempre dejar o router por último!
     path('', include(router.urls)),
 ]

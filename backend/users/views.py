@@ -61,13 +61,15 @@ def profile(request):
     user = request.user
 
     if request.method == 'GET':
+        # Serializa e retorna os dados do usuário
         serializer = UserUpdateSerializer(user)
         return Response(serializer.data)
 
     if request.method == 'PATCH':
+        # Atualiza o perfil do usuário
         serializer = UserUpdateSerializer(user, data=request.data, partial=True)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save()  # Salva as alterações, incluindo avatar e senha
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

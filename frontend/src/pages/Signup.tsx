@@ -22,7 +22,7 @@ export function Signup() {
         try {
         await auth.signup(email, password, passwordConfirmation);
         setError('');
-        navigate('/'); // redireciona para a home após login
+        navigate('/');
         } catch (err: any) {
         setError(err.message || 'Falha ao criar usuário');
         }
