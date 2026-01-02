@@ -2,10 +2,8 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from rest_framework_simplejwt.tokens import RefreshToken
 
 User = get_user_model()
-
 
 class UserCreateSerializer(serializers.ModelSerializer):
     """
@@ -34,15 +32,13 @@ class UserCreateSerializer(serializers.ModelSerializer):
         """
         Remove o campo password_confirmation e cria o usuário com a senha hashada.
         """
-        validated_data.pop(
-            'password_confirmation')  # Remove a confirmação antes de criar
+        validated_data.pop('password_confirmation')  # Remove a confirmação antes de criar
         return User.objects.create_user(
             email=validated_data['email'],
             password=validated_data['password'],  # Hash automático no create_user
             bio=validated_data.get('bio', ''),
             avatar=validated_data.get('avatar', None)
         )
-        return user
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -53,20 +49,28 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['id', 'email', 'bio', 'avatar']
 
+
 class UserUpdateSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=False)
     avatar = serializers.ImageField(required=False)
 
     class Meta:
         model = User
-        fields = ['email', 'username', 'first_name', 'last_name', 'bio', 'avatar', 'password']
+        fields = ['email', 'bio', 'avatar', 'password']
 
     def update(self, instance, validated_data):
+        # Pega a senha, se fornecida
         password = validated_data.pop('password', None)
+
+        # Atualiza os campos do usuário
         for attr, value in validated_data.items():
             setattr(instance, attr, value)
+
+        # Se uma senha foi fornecida, atualiza a senha do usuário
         if password:
             instance.set_password(password)
+
+        # Salva o usuário com as alterações
         instance.save()
         return instance
 

@@ -34,10 +34,8 @@ export function TweetBox() {
             const newTweet = await response.json();
             console.log("Tweet criado com sucesso:", newTweet);
 
-            setTweet(''); // Limpa o campo de texto
-            // alert("Tweet enviado com sucesso!\nA página será atualizada para você ver seu novo Tweet.");
+            setTweet('');
 
-            // Hard reload: Recarrega a página inteira
             window.location.reload();
         } catch (error) {
             console.error("Erro ao criar tweet:", error);

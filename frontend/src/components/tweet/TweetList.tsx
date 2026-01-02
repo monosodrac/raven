@@ -1,4 +1,3 @@
-// tweet/tweetlist.tsx
 import { useEffect } from 'react';
 import { Tweet } from './Tweet';
 import { useTweets } from '../../hooks/useTweets';
@@ -24,8 +23,8 @@ export function TweetList() {
                     retweets={tweet.retweets_count || 0}
                     replies={tweet.replies_count || 0}
                     liked={tweet.liked_by_me || false}
-                    userId={tweet.author_id}          // 🔹 aqui
-                    isFollowing={tweet.is_following} // 🔹 aqui
+                    userId={tweet.author_id}
+                    isFollowing={tweet.is_following}
                 />
             ))}
         </div>

@@ -1,4 +1,3 @@
-// src/hooks/useAuth.ts
 import { create } from 'zustand';
 import { api } from '../api/api';
 
@@ -32,7 +31,7 @@ export const useAuth = create<AuthState>((set) => ({
         const data = await resp.json();
         localStorage.setItem('authToken', data.access);
         set({ isAuthenticated: true, token: data.access });
-        console.log("Token após login:", data.access); // 🔹 aqui
+        console.log("Token após login:", data.access);
         } catch (error) {
         console.error('Erro ao fazer login:', error);
         set({ isAuthenticated: false, token: null });
@@ -58,7 +57,6 @@ export const useAuth = create<AuthState>((set) => ({
         }
 
         await resp.json();
-        // login automático após o cadastro bem-sucedido
         await useAuth.getState().login(email, password);
         } catch (error) {
         console.error('Erro ao fazer cadastro:', error);
@@ -73,7 +71,7 @@ export const useAuth = create<AuthState>((set) => ({
 
     restoreSession: () => {
     const token = localStorage.getItem('authToken');
-        console.log("restoreSession token:", token); // 🔹 aqui
+        console.log("restoreSession token:", token);
     if (token) {
         set({ isAuthenticated: true, token });
     } else {

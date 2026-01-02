@@ -1,4 +1,3 @@
-// hooks/useTweets.ts
 import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from './useAuth';
 import { api } from '../api/api';
@@ -13,11 +12,11 @@ export interface CommentType {
 export interface TweetType {
     id: number;
     username: string;
-    user_id: number;           // <-- agora incluído
+    user_id: number;
     author_id: number
     content: string;
     timestamp: string;
-    likes_count: number;       // <-- corresponde ao JSON
+    likes_count: number;
     replies_count: number;
     comments: CommentType[];
     is_following: boolean;
@@ -29,7 +28,7 @@ export interface TweetType {
 
 export function useTweets() {
     const [tweets, setTweets] = useState<TweetType[]>([]);
-    const [reloadKey, setReloadKey] = useState(0); // Força uma atualização
+    const [reloadKey, setReloadKey] = useState(0);
     const { token } = useAuth();
 
     const fetchTweets = useCallback(async () => {
@@ -60,7 +59,7 @@ export function useTweets() {
     }, [fetchTweets, reloadKey]);
 
     const reloadTweets = () => {
-        setReloadKey((prev) => prev + 1); // Incrementa para forçar atualização
+        setReloadKey((prev) => prev + 1);
     };
 
     return { tweets, setTweets, fetchTweets, reloadTweets };
