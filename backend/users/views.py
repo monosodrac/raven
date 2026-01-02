@@ -1,4 +1,4 @@
-# users/views.py
+from multiprocessing import context
 from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
@@ -23,9 +23,9 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
 
     def get_permissions(self):
-        if self.action == "create":  # criar usuário
+        if self.action == "create":
             return [permissions.AllowAny()]
-        return [permissions.IsAuthenticated()]  # outras ações exigem login
+        return [permissions.IsAuthenticated()]
 
 
 # -------------------------------
@@ -61,15 +61,13 @@ def profile(request):
     user = request.user
 
     if request.method == 'GET':
-        # Serializa e retorna os dados do usuário
-        serializer = UserUpdateSerializer(user)
+        serializer = UserUpdateSerializer(user, context={'request': request})
         return Response(serializer.data)
 
     if request.method == 'PATCH':
-        # Atualiza o perfil do usuário
-        serializer = UserUpdateSerializer(user, data=request.data, partial=True)
+        serializer = UserUpdateSerializer(user, data=request.data, partial=True, context={'request': request})
         if serializer.is_valid():
-            serializer.save()  # Salva as alterações, incluindo avatar e senha
+            serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

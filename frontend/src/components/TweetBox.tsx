@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Image, Smile, Calendar, MapPin } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { api } from '../api/api';
@@ -6,7 +6,33 @@ import { api } from '../api/api';
 export function TweetBox() {
     const [tweet, setTweet] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [avatar, setAvatar] = useState<string>('');
     const { token } = useAuth();
+
+    useEffect(() => {
+        async function fetchUserProfile() {
+            if (token) {
+                try {
+                    const response = await fetch(api('/api/users/profile/'), {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    });
+                    if (response.ok) {
+                        const data = await response.json();
+                        const avatarUrl = data.avatar;
+                        setAvatar(avatarUrl);
+                    } else {
+                        console.error("Erro ao buscar perfil de usuário.");
+                    }
+                } catch (error) {
+                    console.error("Erro na requisição de perfil:", error);
+                }
+            }
+        }
+
+        fetchUserProfile();
+    }, [token]);
 
     const handleTweet = async () => {
         if (!tweet.trim() || !token) {
@@ -48,10 +74,11 @@ export function TweetBox() {
     return (
         <div className="border-b border-gray-800 p-4">
             <div className="flex space-x-4">
+                {/* Exibe o avatar do usuário */}
                 <img
-                    src="https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3467.jpg"
+                    src={avatar}
                     alt="Profile"
-                    className="h-12 w-12 rounded-full"
+                    className="h-12 w-12 rounded-full object-cover"
                 />
                 <div className="flex-1">
                     <textarea

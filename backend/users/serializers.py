@@ -1,4 +1,3 @@
-# users/serializers.py
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -32,10 +31,10 @@ class UserCreateSerializer(serializers.ModelSerializer):
         """
         Remove o campo password_confirmation e cria o usuário com a senha hashada.
         """
-        validated_data.pop('password_confirmation')  # Remove a confirmação antes de criar
+        validated_data.pop('password_confirmation')
         return User.objects.create_user(
             email=validated_data['email'],
-            password=validated_data['password'],  # Hash automático no create_user
+            password=validated_data['password'],
             bio=validated_data.get('bio', ''),
             avatar=validated_data.get('avatar', None)
         )
@@ -59,18 +58,14 @@ class UserUpdateSerializer(serializers.ModelSerializer):
         fields = ['email', 'bio', 'avatar', 'password']
 
     def update(self, instance, validated_data):
-        # Pega a senha, se fornecida
         password = validated_data.pop('password', None)
 
-        # Atualiza os campos do usuário
         for attr, value in validated_data.items():
             setattr(instance, attr, value)
 
-        # Se uma senha foi fornecida, atualiza a senha do usuário
         if password:
             instance.set_password(password)
 
-        # Salva o usuário com as alterações
         instance.save()
         return instance
 
@@ -82,11 +77,9 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
         token = super().get_token(user)
-        # Adicionar campos extras ao token se quiser
         token['email'] = user.email
         return token
 
     def validate(self, attrs):
-        # Troca o "username" por "email"
         attrs['username'] = attrs.get('email', '')
         return super().validate(attrs)

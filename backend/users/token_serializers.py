@@ -15,7 +15,6 @@ class EmailTokenObtainPairSerializer(TokenObtainPairSerializer):
         if not email or not password:
             raise serializers.ValidationError("Email e senha são obrigatórios.")
 
-        # Autentica o usuário pelo email
         user = authenticate(email=email, password=password)
         if not user:
             raise serializers.ValidationError("Email ou senha inválidos.")

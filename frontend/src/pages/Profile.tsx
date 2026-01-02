@@ -21,6 +21,7 @@ export function Profile() {
       const data = await resp.json();
       setEmail(data.email);
       setBio(data.bio || '');
+      console.log(data.avatar)
       setAvatarUrl(data.avatar || '');
     }
     fetchProfile();
@@ -96,7 +97,7 @@ export function Profile() {
                 <div className="mb-3">
                   <img
                     src={avatarUrl}
-                    alt="Avatar Atual"
+                    alt="Foto de perfil"
                     className="w-16 h-16 rounded-full object-cover mb-2"
                   />
                 </div>
