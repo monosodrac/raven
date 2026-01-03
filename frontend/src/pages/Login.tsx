@@ -60,9 +60,9 @@ export function Login() {
                 </form>
 
                 <p className="text-center text-gray-500">
-                    Não tem uma conta?{' '}
+                    Don't have an account?{' '}
                     <Link to="/signup" className="text-blue-500 hover:underline">
-                        Cadastre-se
+                        Sign up
                     </Link>
                 </p>
             </div>

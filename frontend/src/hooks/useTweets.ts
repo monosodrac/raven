@@ -4,27 +4,23 @@ import { api } from '../api/api';
 
 export interface CommentType {
     id: number;
-    avatar: string;
     author_email: string;
     content: string;
     created_at: string;
 }
 
 export interface TweetType {
-    id: number;
-    avatar: string;
-    username: string;
-    user_id: number;
-    author_id: number
-    content: string;
-    timestamp: string;
-    likes_count: number;
-    replies_count: number;
-    comments: CommentType[];
-    is_following: boolean;
-    handle?: string;
-    liked_by_me: boolean;
-    retweets_count: number;
+  id: number;
+  content: string;
+  username: string;
+  author_id: number;
+  author_avatar: string | null;
+  timestamp: string;
+  likes_count: number;
+  liked_by_me: boolean;
+  is_following: boolean;
+  handle?: string;
+  replies_count: number;
 }
 
 
