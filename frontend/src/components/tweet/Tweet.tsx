@@ -5,7 +5,7 @@ import { api } from '../../api/api';
 
 interface TweetProps {
     id: number | string;
-    avatar: string;
+    avatar?: string | null;
     username: string;
     handle?: string;
     content: string;
@@ -20,7 +20,6 @@ interface TweetProps {
 
 interface Comment {
     id: number;
-    avatar: string;
     author_email: string;
     content: string;
     created_at: string;
@@ -45,6 +44,11 @@ export function Tweet({
     const [commentText, setCommentText] = useState('');
     const [isFollowing, setIsFollowing] = useState(initialIsFollowing ?? false);
     const { token } = useAuth();
+    const [replyCount, setReplyCount] = useState(replies);
+
+    useEffect(() => {
+        setReplyCount(replies);
+    }, [replies]);
 
     const handleLike = async () => {
         if (!token) {
@@ -116,8 +120,9 @@ export function Tweet({
         const fetchComments = async () => {
             try {
                 const resp = await fetch(
-                    api(`/api/tweets/${id}/comments/`)
-                );
+                    api(`/api/tweets/${id}/comments/`), {
+                    headers: { Authorization: `Bearer ${token}` },
+                });
                 if (!resp.ok) throw new Error('Erro ao buscar comentários');
                 const data = await resp.json();
                 setComments(data);
@@ -148,6 +153,7 @@ export function Tweet({
             const newComment: Comment = await resp.json();
             setComments(prev => [newComment, ...prev]);
             setCommentText('');
+            setReplyCount(prev => prev + 1);
         } catch (error) {
             console.error(error);
         }
@@ -157,7 +163,10 @@ export function Tweet({
         <div className="border-b border-gray-800 p-4 hover:bg-gray-900/50">
             <div className="flex space-x-4">
                 <img
-                    src={avatar ? avatar : "https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3467.jpg"}
+                    src={
+                        avatar ||
+                        "https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3467.jpg"
+                    }
                     alt={username}
                     className="h-12 w-12 rounded-full"
                 />
@@ -170,11 +179,10 @@ export function Tweet({
 
                         <button
                             onClick={handleFollow}
-                            className={`flex items-center space-x-1 px-3 py-1 rounded-lg text-sm ${
-                                isFollowing
-                                    ? 'bg-gray-700 text-white hover:bg-gray-600'
-                                    : 'bg-blue-600 text-white hover:bg-blue-700'
-                            }`}
+                            className={`flex items-center space-x-1 px-3 py-1 rounded-lg text-sm ${isFollowing
+                                ? 'bg-gray-700 text-white hover:bg-gray-600'
+                                : 'bg-blue-600 text-white hover:bg-blue-700'
+                                }`}
                         >
                             {isFollowing ? <UserMinus size={16} /> : <UserPlus size={16} />}
                             <span>{isFollowing ? 'Seguindo' : 'Seguir'}</span>
@@ -183,33 +191,23 @@ export function Tweet({
 
                     <p className="text-white mt-2">{content}</p>
 
-                    <div className="flex justify-between mt-4 text-gray-500 max-w-md">
+                    <div className="flex gap-x-20 mt-4 text-gray-500 max-w-md">
                         <button className="flex items-center space-x-2 hover:text-blue-500">
                             <MessageCircle className="h-5 w-5" />
-                            <span>{replies}</span>
-                        </button>
-
-                        <button className="flex items-center space-x-2 hover:text-green-500">
-                            <Repeat2 className="h-5 w-5" />
-                            <span>{retweets}</span>
+                            <span>{replyCount}</span>
                         </button>
 
                         <button
-                            className={`flex items-center space-x-2 ${
-                                liked ? 'text-red-500' : 'hover:text-red-500'
-                            }`}
+                            className={`flex items-center space-x-2 ${liked ? 'text-red-500' : 'hover:text-red-500'
+                                }`}
                             onClick={handleLike}
                         >
                             <Heart className="h-5 w-5" />
                             <span>{likeCount}</span>
                         </button>
-
-                        <button className="flex items-center space-x-2 hover:text-blue-500">
-                            <Share className="h-5 w-5" />
-                        </button>
                     </div>
 
-                                        <div className="mt-4">
+                    <div className="mt-4">
                         <div className="flex space-x-2">
                             <input
                                 type="text"

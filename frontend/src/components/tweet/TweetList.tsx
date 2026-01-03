@@ -20,11 +20,12 @@ export function TweetList() {
                     content={tweet.content}
                     timestamp={tweet.timestamp}
                     likes={tweet.likes_count}
-                    retweets={tweet.retweets_count || 0}
+                    retweets={0}
                     replies={tweet.replies_count || 0}
-                    liked={tweet.liked_by_me || false}
+                    liked={tweet.liked_by_me}
                     userId={tweet.author_id}
                     isFollowing={tweet.is_following}
+                    avatar={tweet.author_avatar}
                 />
             ))}
         </div>

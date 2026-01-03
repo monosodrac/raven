@@ -88,21 +88,7 @@ export function TweetBox() {
                         rows={3}
                         disabled={isSubmitting}
                     />
-                    <div className="flex items-center justify-between pt-4 border-t border-gray-800">
-                        <div className="flex space-x-4">
-                            <button className="text-blue-400 hover:text-blue-500">
-                                <Image className="h-5 w-5" />
-                            </button>
-                            <button className="text-blue-400 hover:text-blue-500">
-                                <Smile className="h-5 w-5" />
-                            </button>
-                            <button className="text-blue-400 hover:text-blue-500">
-                                <Calendar className="h-5 w-5" />
-                            </button>
-                            <button className="text-blue-400 hover:text-blue-500">
-                                <MapPin className="h-5 w-5" />
-                            </button>
-                        </div>
+                    <div className="flex items-center justify-end pt-4 border-t border-gray-800">
                         <button
                             onClick={handleTweet}
                             className={`bg-blue-500 text-white px-4 py-2 rounded-full font-bold hover:bg-blue-600 ${
