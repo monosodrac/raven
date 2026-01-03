@@ -5,6 +5,8 @@ import { Signup } from '../pages/Signup';
 import { Feed } from '../pages/Feed';
 import { Profile } from '../pages/Profile';
 import { useAuth } from '../hooks/useAuth';
+import { Followers } from '../pages/Followers';
+import { Following } from '../pages/Following';
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     const { isAuthenticated, token } = useAuth();
@@ -57,6 +59,22 @@ const router = createBrowserRouter([
             <PublicRoute>
                 <Signup />
             </PublicRoute>
+        ),
+    },
+    {
+        path: '/followers',
+        element: (
+            <ProtectedRoute>
+                <Followers />
+            </ProtectedRoute>
+        ),
+    },
+    {
+        path: '/following',
+        element: (
+            <ProtectedRoute>
+                <Following />
+            </ProtectedRoute>
         ),
     },
 ]);

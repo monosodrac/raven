@@ -10,6 +10,9 @@ from .serializers import (
     UserUpdateSerializer
 )
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.decorators import action
+from .serializers import UserSerializer, UserCreateSerializer, MyTokenObtainPairSerializer, UserUpdateSerializer, UserMiniSerializer
+
 
 User = get_user_model()
 
@@ -25,6 +28,18 @@ class UserViewSet(viewsets.ModelViewSet):
         if self.action == "create":
             return [permissions.AllowAny()]
         return [permissions.IsAuthenticated()]
+    
+    @action(detail=False, methods=["get"], url_path="me/followers")
+    def my_followers(self, request):
+        qs = request.user.followers.all()
+        serializer = UserMiniSerializer(qs, many=True, context={"request": request})
+        return Response(serializer.data)
+
+    @action(detail=False, methods=["get"], url_path="me/following")
+    def my_following(self, request):
+        qs = request.user.following.all()
+        serializer = UserMiniSerializer(qs, many=True, context={"request": request})
+        return Response(serializer.data)
 
 
 # -------------------------------
