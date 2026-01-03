@@ -5,6 +5,7 @@ import { api } from '../../api/api';
 
 interface TweetProps {
     id: number | string;
+    avatar: string;
     username: string;
     handle?: string;
     content: string;
@@ -19,6 +20,7 @@ interface TweetProps {
 
 interface Comment {
     id: number;
+    avatar: string;
     author_email: string;
     content: string;
     created_at: string;
@@ -26,6 +28,7 @@ interface Comment {
 
 export function Tweet({
     id,
+    avatar,
     username,
     handle,
     content,
@@ -154,7 +157,7 @@ export function Tweet({
         <div className="border-b border-gray-800 p-4 hover:bg-gray-900/50">
             <div className="flex space-x-4">
                 <img
-                    src="https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3467.jpg"
+                    src={avatar ? avatar : "https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3467.jpg"}
                     alt={username}
                     className="h-12 w-12 rounded-full"
                 />

@@ -4,6 +4,7 @@ import { api } from '../api/api';
 
 export interface CommentType {
     id: number;
+    avatar: string;
     author_email: string;
     content: string;
     created_at: string;
@@ -11,6 +12,7 @@ export interface CommentType {
 
 export interface TweetType {
     id: number;
+    avatar: string;
     username: string;
     user_id: number;
     author_id: number

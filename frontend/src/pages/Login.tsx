@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Logo } from '../components/ui/Logo';
 import { Input } from '../components/ui/Input';
 import { Button } from '../components/ui/Button';
 import { useAuth } from '../hooks/useAuth';
+
+import Logo from '../assets/logo-white.png'
 
 export function Login() {
     const [email, setEmail] = useState('');
@@ -29,7 +30,9 @@ export function Login() {
     return (
         <div className="min-h-screen bg-black flex items-center justify-center">
             <div className="w-full max-w-md space-y-8 p-6">
-                <Logo />
+                <div className="flex justify-center">
+                    <img src={Logo} alt="Logo Do Raven" className="h-40 w-40 text-white" />
+                </div>
                 <h2 className="text-center text-3xl font-bold text-white">
                     Entrar no Twitter
                 </h2>
