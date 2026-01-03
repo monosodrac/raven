@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Heart, MessageCircle, Repeat2, Share, UserPlus, UserMinus } from 'lucide-react';
+import { Heart, MessageCircle, UserPlus, UserMinus } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 import { api } from '../../api/api';
 
@@ -32,7 +32,6 @@ export function Tweet({
     handle,
     content,
     likes,
-    retweets,
     replies,
     liked: initialLiked = false,
     userId,

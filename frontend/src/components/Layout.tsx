@@ -46,6 +46,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
                             >
                                 Profile
                             </Link>
+                            <Link
+                                to="/search-accounts"
+                                className="block text-xl text-white hover:bg-gray-900 rounded-full px-4 py-2 text-center"
+                            >
+                                Find new profiles
+                            </Link>
                         </nav>
 
                         <div className="flex justify-center">
