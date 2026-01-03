@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Image, Smile, Calendar, MapPin } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { api } from '../api/api';
 

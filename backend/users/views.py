@@ -2,6 +2,7 @@ from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
+from django.db.models import Q
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .serializers import (
     UserSerializer,
@@ -11,7 +12,7 @@ from .serializers import (
 )
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.decorators import action
-from .serializers import UserSerializer, UserCreateSerializer, MyTokenObtainPairSerializer, UserUpdateSerializer, UserMiniSerializer
+from .serializers import UserMiniSerializer, UserListSerializer
 
 
 User = get_user_model()
@@ -39,6 +40,38 @@ class UserViewSet(viewsets.ModelViewSet):
     def my_following(self, request):
         qs = request.user.following.all()
         serializer = UserMiniSerializer(qs, many=True, context={"request": request})
+        return Response(serializer.data)
+    
+    @action(detail=False, methods=["get"], url_path="search")
+    def search(self, request):
+        q = request.query_params.get("q", "").strip()
+
+        qs = User.objects.all()
+
+        qs = qs.exclude(id=request.user.id)
+
+        if q:
+            qs = qs.filter(
+                Q(email__icontains=q) | Q(bio__icontains=q)
+            )
+
+        qs = qs.order_by("email")[:50]
+
+        serializer = UserListSerializer(qs, many=True, context={"request": request})
+        return Response(serializer.data)
+    
+    @action(detail=True, methods=["get"], url_path="followers")
+    def followers(self, request, pk=None):
+        user = self.get_object()
+        qs = user.followers.all()
+        serializer = UserListSerializer(qs, many=True, context={"request": request})
+        return Response(serializer.data)
+
+    @action(detail=True, methods=["get"], url_path="following")
+    def following(self, request, pk=None):
+        user = self.get_object()
+        qs = user.following.all()
+        serializer = UserListSerializer(qs, many=True, context={"request": request})
         return Response(serializer.data)
 
 

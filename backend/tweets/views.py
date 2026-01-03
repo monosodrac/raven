@@ -6,7 +6,7 @@ from django.db.models import Count, Q
 from django.http import JsonResponse
 from .models import Tweet
 from .serializers import TweetSerializer, CommentSerializer
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticated
 
 class TweetViewSet(viewsets.ModelViewSet):
     serializer_class = TweetSerializer
