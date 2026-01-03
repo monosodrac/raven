@@ -56,8 +56,8 @@ export function Profile() {
   return (
     <Layout>
       <div className="flex justify-center bg-black text-white py-16">
-        <div className="w-full max-w-md bg-[#16181c] rounded-2xl p-6 shadow-lg border border-gray-800">
-          <h2 className="text-xl font-bold mb-4 text-center text-white">Meu Perfil</h2>
+        <div className="w-full max-w-md p-6">
+          <h2 className="text-xl font-bold mb-4 text-center text-white">My Profile</h2>
           {message && (
             <p className="text-center text-sm text-green-500 mb-3">{message}</p>
           )}
@@ -82,10 +82,10 @@ export function Profile() {
               />
             </div>
             <div>
-              <label className="block text-sm text-gray-400 mb-1">Nova senha</label>
+              <label className="block text-sm text-gray-400 mb-1">New password</label>
               <input
                 type="password"
-                placeholder="Nova senha"
+                placeholder="New password"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
                 className="w-full bg-transparent border border-gray-700 rounded-lg p-3 text-white focus:ring-1 focus:ring-blue-500 outline-none"
@@ -112,7 +112,7 @@ export function Profile() {
               type="submit"
               className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-full transition-all duration-200"
             >
-              Salvar
+              Save
             </button>
           </form>
         </div>

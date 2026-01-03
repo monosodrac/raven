@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Twitter } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
+
+import logo from '../assets/logo-white.png'
 
 export function Signup() {
     const [email, setEmail] = useState('');
@@ -32,41 +33,41 @@ export function Signup() {
         <div className="min-h-screen bg-black flex items-center justify-center">
         <div className="w-full max-w-md space-y-8 p-6">
             <div className="flex justify-center">
-            <Twitter className="h-12 w-12 text-white" />
+                <img src={logo} alt="Logo do Raven" className="h-40 w-40 text-white" />
             </div>
             <h2 className="text-center text-3xl font-bold text-white">Create your account</h2>
             <form className="space-y-6" onSubmit={handleSubmit}>
-            <input
-                type="email"
-                placeholder="Email address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="w-full px-4 py-3 bg-black border border-gray-800 rounded-lg text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-            />
-            <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                className="w-full px-4 py-3 bg-black border border-gray-800 rounded-lg text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-            />
-            <input
-                type="password"
-                placeholder="Confirm Password"
-                value={passwordConfirmation}
-                onChange={(e) => setPasswordConfirmation(e.target.value)}
-                required
-                className="w-full px-4 py-3 bg-black border border-gray-800 rounded-lg text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-            />
-            {error && <p className="text-red-500">{error}</p>}
-            <button
-                type="submit"
-                className="w-full py-3 bg-blue-500 text-white rounded-full font-bold hover:bg-blue-600"
-            >
-                Sign up
-            </button>
+                <input
+                    type="email"
+                    placeholder="Email address"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="w-full px-4 py-3 bg-black border border-gray-800 rounded-lg text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                />
+                <input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    className="w-full px-4 py-3 bg-black border border-gray-800 rounded-lg text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                />
+                <input
+                    type="password"
+                    placeholder="Confirm Password"
+                    value={passwordConfirmation}
+                    onChange={(e) => setPasswordConfirmation(e.target.value)}
+                    required
+                    className="w-full px-4 py-3 bg-black border border-gray-800 rounded-lg text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                />
+                {error && <p className="text-red-500">{error}</p>}
+                <button
+                    type="submit"
+                    className="w-full py-3 bg-blue-500 text-white rounded-full font-bold hover:bg-blue-600"
+                >
+                    Sign up
+                </button>
             </form>
             <p className="text-center text-gray-500">
             Already have an account?{' '}
