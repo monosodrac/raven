@@ -29,6 +29,18 @@ export function Layout({ children }: { children: React.ReactNode }) {
                                 Home
                             </Link>
                             <Link
+                                to="/followers"
+                                className="block text-xl text-white hover:bg-gray-900 rounded-full px-4 py-2"
+                            >
+                                Followers
+                            </Link>
+                            <Link
+                                to="/following"
+                                className="block text-xl text-white hover:bg-gray-900 rounded-full px-4 py-2"
+                            >
+                                Following
+                            </Link>
+                            <Link
                                 to="/profile"
                                 className="block text-xl text-white hover:bg-gray-900 rounded-full px-4 py-2"
                             >
