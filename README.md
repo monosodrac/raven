@@ -33,13 +33,13 @@ Crie e ative um ambiente virtual:
 
 ```bash
 # Criar um ambiente virtual
-python3 -m venv venv
+python3 -m venv env
 
 # Ativar o ambiente virtual (Linux/Mac)
-source venv/bin/activate
+source env/bin/activate
 
 # Ativar o ambiente virtual (Windows)
-venv\Scriptsctivate
+env\Scripts\activate
 ```
 
 ### 1.3. Instalar as Dependências do Projeto
@@ -67,10 +67,15 @@ CREATE DATABASE raven_db;
 Crie o arquivo `.env.dev` na raiz do projeto com as seguintes configurações:
 
 ```ini
-POSTGRES_USER=raven
-POSTGRES_PASSWORD=raven
-POSTGRES_DB=raven_db
-DATABASE_URL=postgres://raven:raven@localhost:5432/raven_db
+DEBUG=
+SECRET_KEY=
+DJANGO_ALLOWED_HOSTS=
+SQL_ENGINE=
+SQL_DATABASE=
+SQL_USER=
+SQL_PASSWORD=
+SQL_HOST=
+SQL_PORT=
 ```
 
 ### 1.5. Rodar as Migrações
@@ -95,18 +100,23 @@ Agora, a aplicação estará disponível em [http://127.0.0.1:8000](http://127.0
 
 ### 2.1. Criar o Arquivo `.env.dev` (Variáveis de Ambiente)
 
-Se você já tiver o arquivo `.env.dev`, ótimo! Caso contrário, crie-o com as variáveis de ambiente para o banco de dados.
+Crie o arquivo `.env.dev` com as variáveis de ambiente para o banco de dados.
 
 ```ini
-POSTGRES_USER=raven
-POSTGRES_PASSWORD=raven
-POSTGRES_DB=raven_db
-DATABASE_URL=postgres://raven:raven@db:5432/raven_db
+DEBUG=
+SECRET_KEY=
+DJANGO_ALLOWED_HOSTS=
+SQL_ENGINE=
+SQL_DATABASE=
+SQL_USER=
+SQL_PASSWORD=
+SQL_HOST=
+SQL_PORT=
 ```
 
 ### 2.2. Subir os Contêineres com Docker Compose
 
-Na raiz do seu projeto, já deve existir o arquivo `docker-compose.yml`. Ele define dois serviços:
+Na raiz do projeto, já deve existir o arquivo `docker-compose.yml`. Ele define dois serviços:
 
 - **web**: O serviço que vai rodar o Django.
 - **db**: O serviço que vai rodar o PostgreSQL.
