@@ -21,7 +21,7 @@ DEBUG = int(os.environ.get("DEBUG", 1))
 
 ALLOWED_HOSTS = [
     "monosodrac.pythonanywhere.com",
-    "twitter-theta-henna.vercel.app",
+    "https://raven-monosodrac.vercel.app",
     "127.0.0.1",
     "localhost",
 ]
