@@ -15,9 +15,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
     return (
         <div className="min-h-screen bg-black">
-            <div className="container mx-auto flex min-h-screen">
+            <div className="container mx-10 flex min-h-screen">
                 <aside className="min-w-48 border-r border-gray-800 p-4 relative min-h-screen">
-                    <div className="fixed">
+                    <div className="fixed left-4">
                         <div className="flex justify-center mb-8">
                             <img src={logo} alt="Logo do Raven" className="h-24 w-24 text-white" />
                         </div>
