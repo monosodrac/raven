@@ -34,7 +34,7 @@ export function Login() {
                     <img src={Logo} alt="Logo Do Raven" className="h-40 w-40 text-white" />
                 </div>
                 <h2 className="text-center text-3xl font-bold text-white">
-                    Entrar no Twitter
+                    Welcome to Raven
                 </h2>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -50,12 +50,12 @@ export function Login() {
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        placeholder="Senha"
+                        placeholder="Password"
                         required
                     />
 
                     <Button type="submit" fullWidth disabled={isLoading}>
-                        {isLoading ? 'Acessando...' : 'Entrar'}
+                        {isLoading ? 'Loging In...' : 'Log In'}
                     </Button>
                 </form>
 
