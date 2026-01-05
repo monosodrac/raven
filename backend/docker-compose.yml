@@ -10,7 +10,9 @@ services:
       - ./env.dev
     depends_on:
       - db
-  
+    networks:
+      - backend
+
   db:
     image: postgres:13.0-alpine
     ports:
@@ -21,6 +23,12 @@ services:
       - POSTGRES_USER=raven
       - POSTGRES_PASSWORD=raven
       - POSTGRES_DB=raven_db
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
 
 volumes:
   postgres_data:
