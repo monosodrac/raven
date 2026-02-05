@@ -1,42 +1,96 @@
-# Passo a Passo para Rodar a Aplicação (Backend + Frontend)
+[PYTHON_BADGE]:https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54
+[DJANGO_BADGE]:https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white
+[DRF_BADGE]:https://img.shields.io/badge/DJANGO-REST-ff1709?style=for-the-badge&logo=django&logoColor=white&color=ff1709&labelColor=gray
+[REACT_BADGE]:https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB
+[JWT_BADGE]:https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=jsonwebtokens
+[PRS_BADGE]:https://img.shields.io/badge/PRs-welcome-green?style=for-the-badge
 
-Este projeto possui dois diretórios principais:
+<h1 align="center" style="font-weight: bold;">Raven 🐦</h1>
 
-- `backend/` → API em **Django** + **PostgreSQL**
-- `frontend/` → App em **React + Vite**
+![python][PYTHON_BADGE]
+![django][DJANGO_BADGE]
+![drf][DRF_BADGE]
+![react][REACT_BADGE]
+![jwt][JWT_BADGE]
+![prs][PRS_BADGE]
 
-> **Observação:** no ambiente de desenvolvimento, o frontend usa **proxy do Vite** para encaminhar requisições para a API em `/api`.
+<img src="./frontend/src/assets/raven.png" />
+
+<p align="center">
+  <b>
+    A Twitter-like social network built with Django REST Framework + JWT and a React frontend.
+  </b>
+</p>
 
 ---
 
-## Sumário
+<details open="open">
+<summary>Table of Contents</summary>
 
-- [Estrutura do Projeto](#estrutura-do-projeto)
-- [Passo 1: Rodando o Backend Localmente](#passo-1-rodando-o-backend-localmente)
-  - [1.1 Instalando Dependências](#11-instalando-dependências)
-  - [1.2 Configurar Ambiente Virtual](#12-configurar-ambiente-virtual)
-  - [1.3 Instalar Dependências do Projeto](#13-instalar-dependências-do-projeto)
-  - [1.4 Configuração do Banco PostgreSQL](#14-configuração-do-banco-postgresql)
-  - [1.5 Rodar Migrações](#15-rodar-migrações)
-  - [1.6 Rodar o Servidor](#16-rodar-o-servidor)
-- [Passo 2: Rodando o Backend com Docker](#passo-2-rodando-o-backend-com-docker)
-  - [2.1 Variáveis de Ambiente](#21-variáveis-de-ambiente)
-  - [2.2 Subir Contêineres](#22-subir-contêineres)
-  - [2.3 Rodar Migrações no Docker](#23-rodar-migrações-no-docker)
-  - [2.4 Acessar a Aplicação](#24-acessar-a-aplicação)
-  - [2.5 Parar os Contêineres](#25-parar-os-contêineres)
-- [Passo 3: Rodando o Frontend (React + Vite)](#passo-3-rodando-o-frontend-react--vite)
-  - [3.1 Pré-requisitos](#31-pré-requisitos)
-  - [3.2 Instalar Dependências do Frontend](#32-instalar-dependências-do-frontend)
-  - [3.3 Proxy para API (já configurado)](#33-proxy-para-api-já-configurado)
-  - [3.4 Rodar Frontend em modo Dev](#34-rodar-frontend-em-modo-dev)
-  - [3.5 Build/Preview (opcional)](#35-buildpreview-opcional)
-- [Rodando Backend + Frontend juntos (cenários comuns)](#rodando-backend--frontend-juntos-cenários-comuns)
+- [🚀 Getting Started](#started)
+- [📍 How It Works](#how-it-works)
+- [⚙️ Technologies Used](#tech)
+- [🤝 How to Reach Me](#reach)
+
+</details>
+
+
+<h2 id="how-it-works">📍 How It Works</h2>
+
+Raven is a full stack social network inspired by Twitter, featuring authentication with JWT, personalized feeds, tweets, likes, comments, profiles, and follow systems.
+
+---
+<h2 id="tech">⚙️ Technologies</h2>
+
+- Python
+- Django
+- Django REST Framework
+- JWT
+- React
+
+---
+
+<h2 id="started">🚀 Getting Started</h2>
+
+## Step by step to running the application (Backend + Frontend)
+
+This project has two main directories:
+
+- `backend/` → API built in **Django** + **PostgreSQL**
+- `frontend/` → App built in **React + Vite**
+
+> **Obs:** on development environment, the frontend uses **Vite proxy** to forward requests to the API in `/api`.
+
+---
+
+### Summary
+
+- [Project Structure](#project-structure)
+- [Step 1: Running the Backend Locally](#step-1-running-the-backend-locally)
+  - [1.1 Installing Dependencies](#11-installing-dependencies)
+  - [1.2 Configure Virtual Environment](#12-configure-virtual-environment)
+  - [1.3 Install Project Dependencies](#13-install-project-dependencies)
+  - [1.4 Configure PostgreSQL Database](#14-configure-postgresql-database)
+  - [1.5 Run Migrations](#15-run-migrations)
+  - [1.6 Run Server](#16-run-server)
+- [Step 2: Running the Backend with Docker](#step-2-running-the-backend-with-docker)
+  - [2.1 Environmental Variables](#21-environmental-variables)
+  - [2.2 Run Containers](#22-run-containers)
+  - [2.3 Running Migrations on Docker](#23-running-migrations-on-docker)
+  - [2.4 Access Application](#24-access-application)
+  - [2.5 Stop Containers](#25-stop-containers)
+- [Step 3: Running Frontend Locally](#step-3-running-frontend-locally)
+  - [3.1 Prerequisites](#31-prerequisites)
+  - [3.2 Install Frontend Dependencies](#32-install-frontend-dependencies)
+  - [3.3 Proxy for API (already configured)](#33-proxy-for-api-already-configured)
+  - [3.4 Running Frontend on Dev mode](#34-running-frontend-on-dev-mode)
+  - [3.5 Build/Preview (optional)](#35-buildpreview-optional)
+- [Running Backend + Frontend together (common scenarios)](#running-backend--frontend-together-common-scenarios)
 - [Troubleshooting](#troubleshooting)
 
 ---
 
-## Estrutura do Projeto
+### Project Structure
 
 ```text
 .
@@ -53,80 +107,78 @@ Este projeto possui dois diretórios principais:
 
 ---
 
-## Passo 1: Rodando o Backend Localmente
+### Step 1: Running the Backend Locally
 
-### 1.1. Instalando Dependências
+#### 1.1. Installing Dependencies
 
-Para rodar o backend localmente (sem Docker), você precisa de:
+To run the backend locally (without Docker), you will need:
 
 - **Python 3.13**
 - **Poetry**
 - **PostgreSQL**
 
-#### Instalar Python
+##### Install Python
 
-Certifique-se de que o Python 3.13 está instalado em sua máquina.
+Make sure Python 3.13 is already installed.
 
 - https://www.python.org/downloads/
 
-#### Instalar PostgreSQL
+##### Instalar PostgreSQL
 
-Certifique-se de que o PostgreSQL esteja instalado em sua máquina.
+Make sure PostgreSQL is already installed.
 
 - https://www.postgresql.org/download/
 
-#### Instalar o Poetry
+##### Install Poetry
 
-O Poetry é um gerenciador de dependências para Python. Instale-o executando:
+Poetry is a Python manager dependencies. Install it running:
 
 ```bash
 curl -sSL https://install.python-poetry.org | python3 -
 ```
 
-> Dica: após instalar, pode ser necessário reabrir o terminal para o `poetry` ficar disponível no PATH.
+> Tip: After you install it, it might be necessary reopen the terminal for `poetry` to be able on PATH.
 
-### 1.2. Configurar o Ambiente Virtual
+#### 1.2. Configure Virtual Environment
 
-Crie e ative um ambiente virtual:
+Create and active a virtual environment:
 
 ```bash
-# Criar um ambiente virtual
+# Create virtual environment
 python3 -m venv env
 
-# Ativar o ambiente virtual (Linux/Mac)
+# Active virtual environment (Linux/Mac)
 source env/bin/activate
 
-# Ativar o ambiente virtual (Windows)
+# Active virtual environment (Windows)
 env\Scripts\activate
 ```
 
-> Alternativa (opcional): você também pode usar `poetry shell` para entrar no ambiente virtual do Poetry.
+#### 1.3. Install Project Dependencies
 
-### 1.3. Instalar as Dependências do Projeto
-
-Entre no diretório do backend e instale as dependências com Poetry:
+get in backend directory and install the dependencies with Poetry:
 
 ```bash
 cd backend
 poetry install
 ```
 
-### 1.4. Configuração do Banco de Dados PostgreSQL
+#### 1.4. Configure PostgreSQL Database
 
-#### 1) Crie o banco no PostgreSQL
+##### 1) Create database on Postgres
 
-Exemplo criando um banco chamado `raven_db`:
+Example: Creating a datbase called `raven_db`:
 
 ```bash
 psql -U postgres
 CREATE DATABASE raven_db;
 ```
 
-#### 2) Configure o arquivo `.env.dev`
+##### 2) Configure `.env.dev` file
 
-Crie o arquivo `env.dev` na raiz do **backend** (`backend/env.dev`) com as configurações do projeto.
+Create an `env.dev` file in **backend** root directory (`backend/env.dev`) with the settings of the project.
 
-Você pode manter em branco e preencher manualmente, ou usar o exemplo abaixo como base:
+You can fill it out by yourself, or use the example right bellow as a basis:
 
 ```ini
 # backend/.env.dev
@@ -143,43 +195,43 @@ SQL_HOST=localhost
 SQL_PORT=5432
 ```
 
-> Ajuste `SQL_USER` / `SQL_PASSWORD` conforme o seu PostgreSQL local.
+> Set `SQL_USER` / `SQL_PASSWORD` as your local PostgreSQL.
 
-### 1.5. Rodar as Migrações
+#### 1.5. Run Migrations
 
-Com o banco configurado, rode as migrações:
+With the database configured, run migrations:
 
 ```bash
 cd backend
 poetry run python manage.py migrate
 ```
 
-> Se você estiver com o ambiente virtual ativado e preferir, pode rodar `python manage.py migrate` diretamente.
+> If you are in the virtual environment, you may prefer run `python manage.py migrate` directly.
 
-### 1.6. Rodar o Servidor
+#### 1.6. Run Server
 
-Para rodar a aplicação localmente:
+To run the application locally:
 
 ```bash
 cd backend
 poetry run python manage.py runserver
 ```
 
-Agora, o backend estará disponível em:
+Now, the backend should be availiable on:
 
 - http://127.0.0.1:8000
 
 ---
 
-## Passo 2: Rodando o Backend com Docker
+### Step 2: Running the Backend with Docker
 
-> Estes passos assumem que existe um `docker-compose.yml` (normalmente em `backend/` ou na raiz do projeto) com serviços `web` e `db`.
+> These steps assume that there is a `docker-compose.yml` (in the `backend/` directory, or at the root of the project) with services `web` and `db`.
 
-### 2.1. Variáveis de Ambiente
+#### 2.1. Environment Variables
 
-Crie o arquivo `env.dev` (se ainda não existir) com as variáveis de ambiente do banco.
+Create `env.dev` file (if it doesn't exists), with the database environment variables.
 
-Exemplo:
+For example:
 
 ```ini
 # backend/env.dev (ou ./env.dev, dependendo do seu docker-compose)
@@ -196,33 +248,33 @@ SQL_HOST=db
 SQL_PORT=5432
 ```
 
-> Em Docker, o `SQL_HOST` normalmente é o nome do serviço do banco no compose (ex: `db`).
+> In Docker, the `SQL_HOST` is normally the name of the database service on compose (ex: `db`).
 
-### 2.2. Subir os Contêineres
+#### 2.2. Run Containers
 
-Na pasta onde está o `docker-compose.yml`, execute:
+On the folder where `docker-compose.yml` is located, execute:
 
 ```bash
 docker-compose up --build
 ```
 
-### 2.3. Rodar Migrações no Docker
+#### 2.3. Running Migrations on Docker
 
-Com os containers rodando, aplique as migrações dentro do container `web`:
+With the containers running on, make migrations within container `web`:
 
 ```bash
 docker-compose exec web python manage.py migrate
 ```
 
-### 2.4. Acessar a Aplicação
+#### 2.4. Access Application
 
-Agora, o backend estará disponível em:
+Now, the backend will be availiable on:
 
 - http://localhost:8000
 
-### 2.5. Parar os Contêineres
+#### 2.5. Stop Containers
 
-Para parar os contêineres:
+For stop the containers:
 
 ```bash
 docker-compose down
@@ -230,27 +282,25 @@ docker-compose down
 
 ---
 
-## Passo 3: Rodando o Frontend (React + Vite)
+### Step 3: Running Frontend Locally
 
-> **Pré-requisito:** o backend precisa estar rodando (localmente ou via Docker), porque o frontend consome a API em `/api`.
+#### 3.1. Prerequisites
 
-### 3.1. Pré-requisitos
+- **Node.js**
+- **npm** (or `yarn`/`pnpm`)
 
-- **Node.js** (recomendado: versão LTS recente)
-- **npm** (ou `yarn`/`pnpm`)
+#### 3.2. Install Frontend Dependencies
 
-### 3.2. Instalar Dependências do Frontend
-
-Entre no diretório `frontend` e instale as dependências:
+Get in `frontend` directory and install the dependencies:
 
 ```bash
 cd frontend
 npm install
 ```
 
-### 3.3. Proxy para API (já configurado)
+#### 3.3. Proxy for API (already configured)
 
-O `vite.config.ts` está configurado para encaminhar chamadas para `/api` ao backend em `http://127.0.0.1:8000`:
+The `vite.config.ts` is configured to take calls for `/api` to backend on `http://127.0.0.1:8000`:
 
 ```ts
 import { defineConfig } from 'vite';
@@ -269,36 +319,36 @@ export default defineConfig({
 });
 ```
 
-✅ Isso permite que o frontend faça chamadas assim:
+✅ That allows that frontend make calls like that:
 
 - `fetch('/api/users/token/')`
 
-…e o Vite redireciona para:
+…and Vite redirect to:
 
 - `http://127.0.0.1:8000/api/users/token/`
 
-> Se seu backend estiver em outro host/porta, ajuste o proxy em `vite.config.ts`.
+> If your backend is in another host/door, set it up on `vite.config.ts`.
 
-### 3.4. Rodar Frontend em modo Dev
+#### 3.4. Running Frontend on Dev mode
 
 ```bash
 cd frontend
 npm run dev
 ```
 
-Por padrão, o Vite sobe em:
+By deafult, Vite runs in:
 
 - http://localhost:5173
 
-### 3.5. Build/Preview (opcional)
+#### 3.5. Build/Preview (optional)
 
-Gerar build de produção:
+Generate build for production:
 
 ```bash
 npm run build
 ```
 
-Visualizar o build localmente:
+View build locally:
 
 ```bash
 npm run preview
@@ -306,18 +356,18 @@ npm run preview
 
 ---
 
-## Rodando Backend + Frontend juntos (cenários comuns)
+### Running Backend + Frontend together (common scenarios)
 
-### Cenário A: Backend local + Frontend local
+#### Scenario A: local Backend + local Frontend
 
-1) Suba o backend:
+1) Run backend:
 
 ```bash
 cd backend
 poetry run python manage.py runserver
 ```
 
-2) Suba o frontend:
+2) Run frontend:
 
 ```bash
 cd frontend
@@ -327,22 +377,22 @@ npm run dev
 - Backend: http://127.0.0.1:8000  
 - Frontend: http://localhost:5173
 
-### Cenário B: Backend no Docker + Frontend local
+#### Scenario B: Backend on Docker + local Frontend
 
-1) Suba o backend via Docker:
+1) Run backend by Docker:
 
 ```bash
-# rode no diretório onde está o docker-compose.yml
+# run on directory where docker-compose.yml is located
 docker-compose up --build
 ```
 
-2) Migrações:
+2) Migrations:
 
 ```bash
 docker-compose exec web python manage.py migrate
 ```
 
-3) Suba o frontend localmente:
+3) Run frontend locally:
 
 ```bash
 cd frontend
@@ -352,31 +402,43 @@ npm run dev
 
 ---
 
-## Troubleshooting
+### Troubleshooting
 
-### Frontend não consegue acessar `/api`
+#### Frontend can not access `/api`
 
-- Confirme se o backend está rodando em `http://127.0.0.1:8000` (ou ajuste o proxy do Vite).
-- Confirme que suas rotas de API começam com `/api`.
+- Confirm that backend is running in `http://127.0.0.1:8000` (or set up proxy of Vite).
+- Confirm that your API routes starts with `/api`.
 
-### CORS
+#### Token/login
 
-No desenvolvimento, o proxy do Vite geralmente evita problemas de CORS, porque o navegador fala com `localhost:5173` e o Vite encaminha para o backend.
+Token is stored on `localStorage` (`authToken`). if something gets “stuck”, try:
 
-### Token/login
-
-O token é armazenado em `localStorage` (`authToken`). Se algo ficar “preso”, tente:
-
-- Limpar `localStorage` no navegador
-- Recarregar a página
-- Refazer login
+- Clear `localStorage` on browser
+- Reload the page
 
 ---
 
-### Comandos úteis (Frontend)
+#### Useful commands (Frontend)
 
 ```bash
 npm run lint
 npm run build
 npm run preview
 ```
+
+---
+
+<h2 id="reach">🤝 How to reach me</h2>
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://linktr.ee/monosodrac">
+        <img src="https://avatars.githubusercontent.com/u/141099551?v=4" width="100px;" alt="Mono Cardoso Profile Picture"/><br>
+        <sub>
+          <b>Mono</b>
+        </sub>
+      </a>
+    </td>
+  </tr>
+</table>
